@@ -20,7 +20,7 @@ public class Library {
         }
         System.out.println(System.lineSeparator());
         for (Book book : array) {
-            if (book.getName().equals("Clean Code")) {
+            if ("Clean Code".equals(book.getName())) {
                 System.out.println(book.getName() + " - " + book.getCountPages() + " pages");
             }
         }
