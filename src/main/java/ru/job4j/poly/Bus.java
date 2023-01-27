@@ -14,7 +14,6 @@ public class Bus implements Transport {
 
     @Override
     public double refuel(double count) {
-        System.out.println("Автобус заправляется");
         double price = 48.5;
         return count * price;
     }
