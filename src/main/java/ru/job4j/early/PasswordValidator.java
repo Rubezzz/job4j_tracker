@@ -9,58 +9,44 @@ public class PasswordValidator {
         if (password.length() < 8 || password.length() > 32) {
             throw new IllegalArgumentException("Password should be length [8, 32]");
         }
-        if (!upperCaseIsThere(password)) {
-            throw new IllegalArgumentException("Password should contain at least one uppercase letter");
-        }
-        if (!lowerCaseIsThere(password)) {
-            throw new IllegalArgumentException("Password should contain at least one lowercase letter");
-        }
-        if (!numberIsThere(password)) {
-            throw new IllegalArgumentException("Password should contain at least one figure");
-        }
-        if (!specialIsThere(password)) {
-            throw new IllegalArgumentException("Password should contain at least one special symbol");
-        }
         if (containsSubStr(password)) {
             throw new IllegalArgumentException("Password shouldn't contain substrings: qwerty, 12345, password, admin, user");
         }
+        validateSymbols(password);
         return password;
     }
 
-    public static boolean upperCaseIsThere(String str) {
+    private static void validateSymbols(String str) {
+        boolean upperCase = false;
+        boolean lowerCase = false;
+        boolean number = false;
+        boolean special = false;
         for (char symbol : str.toCharArray()) {
-            if (Character.isUpperCase(symbol)) {
-                return true;
+            if (!upperCase && Character.isUpperCase(symbol)) {
+                upperCase = true;
+            }
+            if (!lowerCase && Character.isLowerCase(symbol)) {
+                lowerCase = true;
+            }
+            if (!number && Character.isDigit(symbol)) {
+                number = true;
+            }
+            if (!special && !Character.isDigit(symbol) && !Character.isAlphabetic(symbol)) {
+                special = true;
             }
         }
-        return false;
-    }
-
-    public static boolean lowerCaseIsThere(String str) {
-        for (char symbol : str.toCharArray()) {
-            if (Character.isLowerCase(symbol)) {
-                return true;
-            }
+        if (!upperCase) {
+            throw new IllegalArgumentException("Password should contain at least one uppercase letter");
         }
-        return false;
-    }
-
-    public static boolean numberIsThere(String str) {
-        for (char symbol : str.toCharArray()) {
-            if (Character.isDigit(symbol)) {
-                return true;
-            }
+        if (!lowerCase) {
+            throw new IllegalArgumentException("Password should contain at least one lowercase letter");
         }
-        return false;
-    }
-
-    public static boolean specialIsThere(String str) {
-        for (char symbol : str.toCharArray()) {
-            if (!Character.isDigit(symbol) && !Character.isAlphabetic(symbol)) {
-                return true;
-            }
+        if (!number) {
+            throw new IllegalArgumentException("Password should contain at least one figure");
         }
-        return false;
+        if (!special) {
+            throw new IllegalArgumentException("Password should contain at least one special symbol");
+        }
     }
 
     public static boolean containsSubStr(String str) {
