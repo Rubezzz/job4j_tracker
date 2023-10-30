@@ -29,13 +29,11 @@ public class MemTracker implements Store {
         return rsl;
     }
 
-    public boolean delete(int id) {
+    public void delete(int id) {
         int index = indexOf(id);
-        boolean rsl = index != -1;
-        if (rsl) {
+        if (index != -1) {
             items.remove(index);
         }
-        return rsl;
     }
 
     private int indexOf(int id) {
