@@ -119,25 +119,4 @@ public class SqlTracker implements Store {
         }
         return item;
     }
-
-    public static void main(String[] args) {
-        Output output = new ConsoleOutput();
-        Input input = new ValidateInput(
-                output, new ConsoleInput()
-        );
-        try (Store tracker = new SqlTracker()) {
-            List<UserAction> actions = List.of(
-                    new CreateAction(output),
-                    new ShowAllActions(output),
-                    new EditAction(output),
-                    new DeleteAction(output),
-                    new FindActionById(output),
-                    new FindActionByName(output),
-                    new ExitProgram()
-            );
-            new StartUI(output).init(input, tracker, actions);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
